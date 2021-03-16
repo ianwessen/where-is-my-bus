@@ -21,7 +21,6 @@ export default {
 body {
 	margin: 0;
 	padding: 0;
-	/* height: 100vh; */
 	display: flex;
 	align-items: center;
 	justify-content: center;

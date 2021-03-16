@@ -6,7 +6,7 @@ export const nextBusPrediction = (nextBusApiResponse) => {
 		prediction = nextBusApiResponse.predictions.direction.prediction
 	} catch {
 		console.error(nextBusApiResponse)
-		throw Error('Oof! No prediction object!')
+		throw Error('😵 No predictions!')
 	}
 	return prediction
 }
