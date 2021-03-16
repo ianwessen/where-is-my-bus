@@ -8,3 +8,4 @@ export const STOP_ID_MCBAKER_INBOUND = '15385'
 
 // For testing:
 // https://www.nextbus.com/#!/sf-muni/5/5____I_F00/5385
+// https://www.nextbus.com/xmlFeedDocs/NextBusXMLFeed.pdf

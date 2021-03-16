@@ -72,6 +72,7 @@ h3 {
 }
 h3:after {
 	position: absolute;
+	content: '';
 	top: 0;
 	left: 0;
 	height: 20px;
