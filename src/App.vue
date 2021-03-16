@@ -1,26 +1,40 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+	<div class="container">
+		<BusList />
+	</div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import BusList from './components/BusList.vue'
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
+	name: 'App',
+	components: {
+		BusList,
+	},
 }
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
+
+body {
+	margin: 0;
+	padding: 0;
+	/* height: 100vh; */
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.container {
+	/* border: 10px solid red; */
+}
+
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+	font-family: Rubik, Helvetica, Arial, sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	color: #2c3e50;
 }
 </style>
