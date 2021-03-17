@@ -1,16 +1,20 @@
 <template>
 	<p v-if="errorMessage">{{ errorMessage }}</p>
 	<div v-if="!errorMessage">
-		<h4>{{ minutes }} minutes and {{ seconds }} seconds</h4>
-		<h3>Bus {{ vehicle }}</h3>
+		<h3>{{ minutes }} minutes and {{ seconds }} seconds</h3>
+
+		<div class="sub-container">
+			<span class="ticker"></span>
+			<h3>Bus {{ vehicle }}</h3>
+		</div>
 	</div>
 </template>
 
 <script>
-import { nextBusPrediction } from '../lib/utils'
-import { getPredictionUrl } from '../lib/utils'
+import { nextBusPrediction } from '../lib/utils';
+import { getPredictionUrl } from '../lib/utils';
 
-let predictionUrl = getPredictionUrl()
+let predictionUrl = getPredictionUrl();
 
 export default {
 	name: 'BusList',
@@ -21,64 +25,84 @@ export default {
 			vehicle: null,
 			minutes: null,
 			seconds: null,
-		}
+		};
 	},
 	mounted() {
 		const fetchData = () => {
 			fetch(predictionUrl)
 				.then((res) => res.json())
 				.then(nextBusPrediction)
-				.then((prediction) => {
-					const { vehicle, seconds } = prediction
-					this.vehicle = vehicle
-					this.minutes = Math.floor(Number(seconds) / 60)
-					this.seconds = Math.ceil((Number(seconds) % 60) / 10) * 10
+				.then((predictions) => {
+					if (!predictions) {
+						this.errorMessage = 'No predictions';
+						return;
+					}
+
+					let prediction;
+
+					if (predictions.length) {
+						prediction = predictions[0];
+					} else {
+						prediction = predictions;
+					}
+
+					const { vehicle, seconds } = prediction;
+
+					this.vehicle = vehicle;
+					this.minutes = Math.floor(Number(seconds) / 60);
+					this.seconds = Math.floor((Number(seconds) % 60) / 10) * 10;
 				})
 				.catch((err) => {
-					console.error(err)
-					this.errorMessage = err.message
-				})
-		}
+					console.error(err);
+					this.errorMessage = err.message;
+				});
+		};
 
-		fetchData()
+		fetchData();
 
 		this.$nextTick(function() {
 			window.setInterval(() => {
-				fetchData()
-			}, 10000)
-		})
+				fetchData();
+			}, 10000);
+		});
 	},
-}
+};
 </script>
 
 <style scoped>
-p {
-	color: crimson;
-	font-size: 48px;
-	background-color: rgb(255, 220, 226);
-	padding: 0.5em;
-}
-h3,
-h4 {
+.sub-container {
 	position: relative;
-	margin: 0;
-	padding: 80px;
-	font-size: 90px;
-	font-weight: 700;
-}
-h3 {
 	background-color: #2c3e50;
 	color: #fff;
 }
-h3:after {
+
+h3 {
+	margin: 0;
+	padding: 80px;
+	font-size: 60px;
+	font-weight: 700;
+}
+
+.ticker {
 	position: absolute;
-	content: '';
 	top: 0;
 	left: 0;
+	right: 0;
 	height: 20px;
-	width: 20px;
-	border: 1px solid red;
+	background-color: hsl(211, 21%, 71%);
+	transform-origin: left center;
+	animation: 3s scale-down linear infinite;
 }
-h4 {
+
+@keyframes scale-down {
+	from {
+		transform: scaleX(1);
+		opacity: 0;
+	}
+
+	to {
+		transform: scaleX(0);
+		opacity: 1;
+	}
 }
 </style>
