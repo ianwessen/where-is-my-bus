@@ -9,7 +9,6 @@ type StationPropsType = {
 
 const getTitleFromKey = (stationId: StationIdType) => {
   if (!stationId) return "No title";
-  // console.log("$$$", stationId);
   const { street, cross } = stationMap[stationId].intersection;
   return `${street} & ${cross}`;
 };

@@ -29,7 +29,7 @@ const PredictionTable = ({ id: stationId }: PredictionTablePropsType) => {
       return result;
     },
     {
-      refetchInterval: 1000,
+      refetchInterval: 10000,
     }
   );
 
@@ -41,6 +41,11 @@ const PredictionTable = ({ id: stationId }: PredictionTablePropsType) => {
     return <p>Error: {error.message}</p>;
   }
 
+  if (data.predictions?.dirTitleBecauseNoPredictions) {
+    return <p>🌙 No more busses tonight</p>;
+  }
+
+  console.log("data", data);
   const { prediction } = data.predictions.direction;
 
   return (

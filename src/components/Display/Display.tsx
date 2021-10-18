@@ -12,10 +12,13 @@ const Display = () => {
   const date = moment().format("dddd, MMMM D");
   return (
     <div className="display">
-      <div className="time-display">
-        <span className="time-display__time">{time}</span>
-        <span className="time-display__date">{date}</span>
-      </div>
+      <header className="display-header">
+        <div className="photo-display"></div>
+        <div className="time-display">
+          <span className="time-display__time">{time}</span>
+          <span className="time-display__date">{date}</span>
+        </div>
+      </header>
       <p></p>
       <div className="station-row">
         <div className="station-item">

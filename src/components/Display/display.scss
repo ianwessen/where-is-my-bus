@@ -1,27 +1,59 @@
-.display {
-  //   border: 1px solid #ff00ff;
+.display-header {
+  position: relative;
 }
 
+.photo-display {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  &:before {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    content: "";
+
+    background: linear-gradient(
+      105deg,
+      #8fb8ee 0%,
+      #cbe2f4 40%,
+      #dbe5eb 63%,
+      #f9d3b8 83%,
+      #e0b2a3 100%
+    );
+  }
+}
 .time-display {
+  position: absolute;
+  position: relative;
+  padding: 60px 0 60px;
   text-align: center;
-  max-width: 800px;
-  margin: 0 auto;
+  // color: #fff;
 
   &__time {
     display: block;
     font-size: 128px;
     font-weight: 700;
+    // text-shadow: 0px 2px 12px rgba(0, 0, 0, 0.2),
+    //   0px 4px 16px rgba(0, 0, 0, 0.1);
   }
 
   &__date {
     display: block;
     font-size: 24px;
+    // text-shadow: 0px 2px 12px rgba(0, 0, 0, 0.2);
   }
 }
 
 .station-row {
   display: flex;
-  padding: 60px 20px;
+  padding: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
 .station-item {
