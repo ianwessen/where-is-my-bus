@@ -1,0 +1,33 @@
+.display {
+  //   border: 1px solid #ff00ff;
+}
+
+.time-display {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+
+  &__time {
+    display: block;
+    font-size: 128px;
+    font-weight: 700;
+  }
+
+  &__date {
+    display: block;
+    font-size: 24px;
+  }
+}
+
+.station-row {
+  display: flex;
+  padding: 60px 20px;
+}
+
+.station-item {
+  flex: 1;
+
+  &:not(:first-of-type) {
+    padding-left: 10%;
+  }
+}
