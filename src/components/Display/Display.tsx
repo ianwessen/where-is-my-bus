@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Station } from "../Station/Station";
 import { stationMap } from "../../constants";
 import moment from "moment";
@@ -8,8 +8,27 @@ import "./display.scss";
 import { BAKER_ID, MASONIC_ID, DIVISADERO_ID } from "../../constants";
 
 const Display = () => {
-  const time = moment().format("HH:MM");
-  const date = moment().format("dddd, MMMM D");
+  const generateTime = () => {
+    return moment().utcOffset(-7).format("HH:mm");
+  };
+
+  const generateDate = () => {
+    return moment().utcOffset(-7).format("dddd, MMMM D");
+  };
+
+  const [time, setTime] = useState(generateTime());
+  const [date, setDate] = useState(generateDate());
+
+  useEffect(() => {
+    const timerID = setInterval(() => {
+      setTime(generateTime());
+      setDate(generateDate());
+    }, 1000);
+    return () => {
+      clearInterval(timerID);
+    };
+  });
+
   return (
     <div className="display">
       <header className="display-header">

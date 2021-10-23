@@ -1,14 +1,10 @@
 import React from "react";
 import "./prediction-table.scss";
 import { useQuery } from "react-query";
-import { PredictionType, StationIdType } from "../../types";
+import { StationIdType, PredictionRowType } from "app/types";
+import { parseResponse } from "app/utils/response-helpers";
 
-import {
-  ROUTE_TAG_PARAM,
-  ROUTE_TAG,
-  PREDICTION_URL,
-  STOP_ID_PARAM,
-} from "../../constants";
+import { apiClient } from "app/api/client";
 
 type PredictionTablePropsType = {
   id: StationIdType;
@@ -17,19 +13,9 @@ type PredictionTablePropsType = {
 const PredictionTable = ({ id: stationId }: PredictionTablePropsType) => {
   const { isLoading, error, data } = useQuery(
     `prediction-${stationId}`,
-    async () => {
-      const url = PREDICTION_URL.replace(ROUTE_TAG_PARAM, ROUTE_TAG).replace(
-        STOP_ID_PARAM,
-        stationId
-      );
-
-      // const response = await fetch(`/mock/${stationId}`);
-      const response = await fetch(url);
-      const result = await response.json();
-      return result;
-    },
+    () => apiClient.getPredictions(`1${stationId}`),
     {
-      refetchInterval: 10000,
+      refetchInterval: 5000,
     }
   );
 
@@ -38,15 +24,15 @@ const PredictionTable = ({ id: stationId }: PredictionTablePropsType) => {
   }
 
   if (error) {
-    return <p>Error: {error.message}</p>;
+    console.error(error);
+    return <p>There was an error</p>;
   }
 
-  if (data.predictions?.dirTitleBecauseNoPredictions) {
-    return <p>🌙 No more busses tonight</p>;
+  if (!data || !data?.predictions) {
+    return <p>Something wrong in response</p>;
   }
 
-  console.log("data", data);
-  const { prediction } = data.predictions.direction;
+  const predictionList = parseResponse(data);
 
   return (
     <table className="prediction-table">
@@ -58,24 +44,16 @@ const PredictionTable = ({ id: stationId }: PredictionTablePropsType) => {
         </tr>
       </thead>
       <tbody>
-        {Array.isArray(prediction) &&
-          prediction.map((p: PredictionType) => {
-            const { vehicle, minutes } = p;
-            return (
-              <tr key={`${vehicle}-${minutes}`}>
-                <td>5</td>
-                <td>{minutes} min</td>
-                <td>{vehicle}</td>
-              </tr>
-            );
-          })}
-        {prediction?.minutes && (
-          <tr>
-            <td>5</td>
-            <td>{prediction.minutes} min</td>
-            <td>{prediction.vehicle}</td>
-          </tr>
-        )}
+        {predictionList.map((p: PredictionRowType) => {
+          const { routeTag, vehicle, minutes } = p;
+          return (
+            <tr key={`${vehicle}-${minutes}`}>
+              <td>{routeTag}</td>
+              <td>{minutes} min</td>
+              <td>{vehicle}</td>
+            </tr>
+          );
+        })}
       </tbody>
     </table>
   );

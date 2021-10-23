@@ -9,6 +9,11 @@
   bottom: 0;
   left: 0;
 
+  background: url("https://images.unsplash.com/photo-1471896335371-82fdaca100f2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1460&q=80");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
   &:before {
     position: absolute;
     top: 0;
@@ -18,34 +23,30 @@
     content: "";
 
     background: linear-gradient(
-      105deg,
-      #8fb8ee 0%,
-      #cbe2f4 40%,
-      #dbe5eb 63%,
-      #f9d3b8 83%,
-      #e0b2a3 100%
+      to top,
+      rgba(#202b38, 1) 0%,
+      rgba(#202b38, 0.5) 100%
     );
   }
 }
 .time-display {
   position: absolute;
   position: relative;
-  padding: 60px 0 60px;
+  padding: 240px 0 100px;
   text-align: center;
-  // color: #fff;
+  color: #fff;
 
   &__time {
     display: block;
     font-size: 128px;
     font-weight: 700;
-    // text-shadow: 0px 2px 12px rgba(0, 0, 0, 0.2),
-    //   0px 4px 16px rgba(0, 0, 0, 0.1);
+    text-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
   }
 
   &__date {
     display: block;
     font-size: 24px;
-    // text-shadow: 0px 2px 12px rgba(0, 0, 0, 0.2);
+    text-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
   }
 }
 
