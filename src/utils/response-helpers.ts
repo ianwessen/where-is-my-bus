@@ -8,7 +8,7 @@ import {
  * Prediction and VehiclePrediction can be Object literal or Array
  * [item].flat() ensures consistent interface for mapping
  */
-export const ensureArray = (arg) => [arg].flat();
+export const ensureArray = <T>(arg: T | T[]) => [arg].flat();
 
 /**
  * Curried function which first accepts routeTag
