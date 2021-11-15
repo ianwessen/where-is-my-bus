@@ -10,4 +10,7 @@ export default defineConfig({
       app: resolve(__dirname, "src"),
     },
   },
+  build: {
+    target: "es2015",
+  },
 });
