@@ -46,11 +46,12 @@ const PredictionTable = ({ id: stationId }: PredictionTablePropsType) => {
       <tbody>
         {predictionList.map((p: PredictionRowType) => {
           const { routeTag, vehicle, minutes } = p;
+          // <td>{vehicle}</td>;
+
           return (
             <tr key={`${vehicle}-${minutes}`}>
               <td>{routeTag}</td>
               <td>{minutes} min</td>
-              <td>{vehicle}</td>
             </tr>
           );
         })}
