@@ -34,6 +34,9 @@ const PredictionTable = ({ id: stationId }: PredictionTablePropsType) => {
 
   const predictionList = parseResponse(data);
 
+  const isEarlier = (a: PredictionRowType, b: PredictionRowType) =>
+    Number(a.minutes) - Number(b.minutes);
+
   return (
     <table className="prediction-table">
       <thead>
@@ -44,7 +47,7 @@ const PredictionTable = ({ id: stationId }: PredictionTablePropsType) => {
         </tr>
       </thead>
       <tbody>
-        {predictionList.map((p: PredictionRowType) => {
+        {predictionList.sort(isEarlier).map((p: PredictionRowType) => {
           const { routeTag, vehicle, minutes } = p;
           return (
             <tr key={`${vehicle}-${minutes}`}>

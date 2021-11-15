@@ -9,7 +9,7 @@ import { BAKER_ID, MASONIC_ID, DIVISADERO_ID } from "../../constants";
 
 const Display = () => {
   const generateTime = () => {
-    return moment().utcOffset(-7).format("HH:mm");
+    return moment().utcOffset(-7).format("H:mm");
   };
 
   const generateDate = () => {
