@@ -40,8 +40,8 @@ export const parseResponse = (
   const result = predictions.map((p) => {
     const routeTag = p.routeTag;
 
-    if (!p?.direction || p.dirTitleBecauseNoPredictions) {
-      //   console.log("Prediction is missing direction: ", p);
+    if (!p?.direction || p?.dirTitleBecauseNoPredictions) {
+      console.log("Prediction is missing direction: ", p);
       return [];
     }
 

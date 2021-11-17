@@ -34,8 +34,13 @@ const PredictionTable = ({ id: stationId }: PredictionTablePropsType) => {
 
   const predictionList = parseResponse(data);
 
-  const isEarlier = (a: PredictionRowType, b: PredictionRowType) =>
-    Number(a.minutes) - Number(b.minutes);
+  const isEarlier = (a: PredictionRowType, b: PredictionRowType) => {
+    if (!a?.minutes || !b?.minutes) {
+      console.log("Malformed sort options", a, b);
+      return 0;
+    }
+    return Number(a.minutes) - Number(b.minutes);
+  };
 
   return (
     <table className="prediction-table">
@@ -47,16 +52,17 @@ const PredictionTable = ({ id: stationId }: PredictionTablePropsType) => {
         </tr>
       </thead>
       <tbody>
-        {predictionList.sort(isEarlier).map((p: PredictionRowType) => {
-          const { routeTag, vehicle, minutes } = p;
-          return (
-            <tr key={`${vehicle}-${minutes}`}>
-              <td>{routeTag}</td>
-              <td>{minutes} min</td>
-              <td>{vehicle}</td>
-            </tr>
-          );
-        })}
+        {predictionList.length > 0 &&
+          predictionList.sort(isEarlier).map((p: PredictionRowType) => {
+            const { routeTag, vehicle, minutes } = p;
+            return (
+              <tr key={`${vehicle}-${minutes}`}>
+                <td>{routeTag}</td>
+                <td>{minutes} min</td>
+                <td>{vehicle}</td>
+              </tr>
+            );
+          })}
       </tbody>
     </table>
   );
