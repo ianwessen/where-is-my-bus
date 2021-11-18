@@ -9,11 +9,11 @@ import { BAKER_ID, MASONIC_ID, DIVISADERO_ID } from "../../constants";
 
 const Display = () => {
   const generateTime = () => {
-    return moment().utcOffset(-7).format("H:mm");
+    return moment().utcOffset(-8).format("H:mm");
   };
 
   const generateDate = () => {
-    return moment().utcOffset(-7).format("dddd, MMMM D");
+    return moment().utcOffset(-8).format("dddd, MMMM D");
   };
 
   const [time, setTime] = useState(generateTime());
