@@ -12,6 +12,21 @@ if (process.env.NODE_ENV === "development") {
   worker.start({ onUnhandledRequest: "bypass" });
 }
 
+/**
+ * Bootleg way of recovering from overnight crash
+ * API tends to change unexpectedly in the night
+ */
+const reloadBrowserEvery = (interval: number) => {
+  setTimeout(() => {
+    reloadBrowserEvery(interval);
+    location.reload();
+  }, interval);
+};
+
+const FIVE_MINUTES = 5 * 60 * 1000;
+
+reloadBrowserEvery(FIVE_MINUTES);
+
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
