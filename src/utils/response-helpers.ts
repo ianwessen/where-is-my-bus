@@ -19,8 +19,8 @@ export const ensureArray = <T>(arg: T | T[]) => [arg].flat();
 export const getPredictionRow =
   (routeTag: string) => (vp: VehiclePredictionType) => ({
     routeTag,
-    minutes: vp.minutes,
-    vehicle: vp.vehicle,
+    minutes: vp?.minutes || "n/a",
+    vehicle: vp?.vehicle || "n/a",
   });
 
 /**
